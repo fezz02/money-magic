@@ -1,10 +1,15 @@
 {
     "name": "fezz/money-magic",
-    "description": "Generate consistent Brick\\Money accessors for Eloquent “money” fields stored as minor units (ints). Define money mappings once, avoid floats, keep currency handling centralized, and optionally scaffold mappings via Artisan for clean, type-safe monetary domain code.",
+    "description": "Generate consistent Brick\\Money accessors for Eloquent \"money\" fields stored as minor units (ints). Define money mappings once, avoid floats, keep currency handling centralized, and optionally scaffold mappings via Artisan for clean, type-safe monetary domain code.",
     "keywords": [
-        "fezz",
         "laravel",
-        "money-magic"
+        "eloquent",
+        "money",
+        "brick-money",
+        "casts",
+        "accessors",
+        "currency",
+        "value-object"
     ],
     "homepage": "https://github.com/fezz/money-magic",
     "license": "MIT",
