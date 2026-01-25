@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fezz\MoneyMagic;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class MoneyMagicServiceProvider extends PackageServiceProvider
+final class MoneyMagicServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {

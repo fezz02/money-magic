@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Brick\Money\Money;
 use Fezz\MoneyMagic\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Model;
@@ -143,4 +145,83 @@ it('handles base field extraction correctly', function () {
     // Test without suffix (should still work)
     $result2 = $cast->get($this->model, 'price', null, $attributes);
     expect($result2)->toBeInstanceOf(Money::class);
+});
+
+it('handles numeric string minor value', function () {
+    $cast = new MoneyCast('currency');
+    $attributes = [
+        'price_minor' => '1000',
+        'currency' => 'EUR',
+    ];
+
+    $result = $cast->get($this->model, 'price_money', null, $attributes);
+
+    expect($result)->toBeInstanceOf(Money::class)
+        ->and($result->getMinorAmount()->toInt())->toBe(1000);
+});
+
+it('handles non-numeric minor value', function () {
+    $cast = new MoneyCast('currency');
+    $attributes = [
+        'price_minor' => 'invalid',
+        'currency' => 'EUR',
+    ];
+
+    $result = $cast->get($this->model, 'price_money', null, $attributes);
+
+    expect($result)->toBeInstanceOf(Money::class)
+        ->and($result->getMinorAmount()->toInt())->toBe(0);
+});
+
+it('handles scalar currency value', function () {
+    $cast = new MoneyCast('currency');
+    $attributes = [
+        'price_minor' => 1000,
+        'currency' => 'USD', // string currency
+    ];
+
+    $result = $cast->get($this->model, 'price_money', null, $attributes);
+
+    expect($result)->toBeInstanceOf(Money::class)
+        ->and($result->getCurrency()->getCurrencyCode())->toBe('USD');
+});
+
+it('returns null when currency is non-scalar', function () {
+    $cast = new MoneyCast('currency');
+    $attributes = [
+        'price_minor' => 1000,
+        'currency' => [], // non-scalar
+    ];
+
+    $result = $cast->get($this->model, 'price_money', null, $attributes);
+
+    expect($result)->toBeNull();
+});
+
+it('handles non-string money suffix from config', function () {
+    config(['money-magic.money.suffix' => 123]);
+
+    $cast = new MoneyCast('currency');
+    $attributes = [
+        'price_minor' => 1000,
+        'currency' => 'EUR',
+    ];
+
+    $result = $cast->get($this->model, 'price_money', null, $attributes);
+
+    expect($result)->toBeInstanceOf(Money::class);
+});
+
+it('handles non-string currency column from config', function () {
+    config(['money-magic.currency-column' => 123]);
+
+    $cast = new MoneyCast;
+    $attributes = [
+        'price_minor' => 1000,
+        'currency' => 'EUR',
+    ];
+
+    $result = $cast->get($this->model, 'price_money', null, $attributes);
+
+    expect($result)->toBeInstanceOf(Money::class);
 });

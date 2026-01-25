@@ -9,6 +9,9 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
+/**
+ * @implements CastsAttributes<Money, Money>
+ */
 final readonly class MoneyCast implements CastsAttributes
 {
     public function __construct(private ?string $currencyColumn = null) {}
@@ -37,9 +40,20 @@ final readonly class MoneyCast implements CastsAttributes
             return null;
         }
 
-        return Money::ofMinor((int) $minor, (string) $currency);
+        $minorInt = is_int($minor) ? $minor : (is_numeric($minor) ? (int) $minor : 0);
+        $currencyString = is_string($currency) ? $currency : (is_scalar($currency) ? (string) $currency : '');
+
+        if ($currencyString === '') {
+            return null;
+        }
+
+        return Money::ofMinor($minorInt, $currencyString);
     }
 
+    /**
+     * @param  array<string, mixed>  $attributes
+     * @return array<string, int|string>
+     */
     public function set(Model $model, string $key, mixed $value, array $attributes): array
     {
         if (! $value instanceof Money) {
@@ -64,7 +78,8 @@ final readonly class MoneyCast implements CastsAttributes
     private function baseField(string $key): string
     {
         // Default: cast is applied to "{base}_money"
-        $moneySuffix = (string) config('money-magic.money.suffix', '_money');
+        $moneySuffixConfig = config('money-magic.money.suffix', '_money');
+        $moneySuffix = is_string($moneySuffixConfig) ? $moneySuffixConfig : '_money';
 
         return str_ends_with($key, $moneySuffix)
             ? substr($key, 0, -strlen($moneySuffix))
@@ -73,7 +88,12 @@ final readonly class MoneyCast implements CastsAttributes
 
     private function currencyColumn(): string
     {
-        return $this->currencyColumn
-            ?? (string) config('money-magic.currency-column', 'currency');
+        if ($this->currencyColumn !== null) {
+            return $this->currencyColumn;
+        }
+
+        $currencyColumnConfig = config('money-magic.currency-column', 'currency');
+
+        return is_string($currencyColumnConfig) ? $currencyColumnConfig : 'currency';
     }
 }
