@@ -41,7 +41,7 @@ If you're unsure whether a feature fits within the scope, please open an issue t
 
 ## Development Setup
 
-1. Clone your fork: `git clone https://github.com/your-username/money-magic.git`
+1. Clone your fork: `git clone https://github.com/fezz02/money-magic.git`
 2. Install dependencies: `composer install`
 3. Run tests: `composer test`
 
