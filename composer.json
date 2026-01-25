@@ -39,8 +39,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Fezz\\MoneyMagic\\": "src/",
-            "Fezz\\MoneyMagic\\Database\\Factories\\": "database/factories/"
+            "Fezz\\MoneyMagic\\": "src/"
         }
     },
     "autoload-dev": {

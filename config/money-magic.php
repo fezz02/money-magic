@@ -16,6 +16,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Money fields auto-hide
+    |--------------------------------------------------------------------------
+    |
+    | When true, MoneyMagic will automatically add derived/internal money fields
+    | to the model's $hidden array.
+    |
+    */
+
+    'autohide' => [
+        'minor' => true,
+        'money' => true,
+        'formatted' => false,
+        'float' => false,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Float accessor (major units)
     |--------------------------------------------------------------------------
     |

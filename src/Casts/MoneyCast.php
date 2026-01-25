@@ -16,7 +16,7 @@ final readonly class MoneyCast implements CastsAttributes
     public function get(Model $model, string $key, mixed $value, array $attributes): ?Money
     {
         $base = $this->baseField($key);
-        $minorKey = $base . '_minor';
+        $minorKey = $base.'_minor';
 
         throw_unless(
             array_key_exists($minorKey, $attributes),
@@ -52,7 +52,7 @@ final readonly class MoneyCast implements CastsAttributes
         }
 
         $base = $this->baseField($key);
-        $minorKey = $base . '_minor';
+        $minorKey = $base.'_minor';
         $currencyColumn = $this->currencyColumn();
 
         return [

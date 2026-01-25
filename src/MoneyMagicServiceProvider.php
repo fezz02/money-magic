@@ -2,7 +2,6 @@
 
 namespace Fezz\MoneyMagic;
 
-use Fezz\MoneyMagic\Commands\MoneyMagicCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

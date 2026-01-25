@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Casts;
+namespace Fezz\MoneyMagic\Casts;
 
 use Brick\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
@@ -16,7 +16,7 @@ final readonly class MoneyFloatCast implements CastsAttributes
     {
         $base = $this->baseField($key);
 
-        $moneyKey = $base . (string) config('money-magic.money.suffix', '_money');
+        $moneyKey = $base.config('money-magic.money.suffix', '_money');
 
         /** @var Money|null $money */
         $money = $model->getAttribute($moneyKey);
@@ -40,7 +40,7 @@ final readonly class MoneyFloatCast implements CastsAttributes
         $base = $this->baseField($key);
 
         return [
-            $base . (string) config('money-magic.minor.suffix', '_minor') => (int) (string) $money->getMinorAmount(),
+            $base.config('money-magic.minor.suffix', '_minor') => (int) (string) $money->getMinorAmount(),
             $this->currencyColumn => $money->getCurrency()->getCurrencyCode(),
         ];
     }
