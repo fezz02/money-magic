@@ -2,9 +2,9 @@
 
 namespace Fezz\MoneyMagic;
 
+use Fezz\MoneyMagic\Commands\MoneyMagicCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Fezz\MoneyMagic\Commands\MoneyMagicCommand;
 
 class MoneyMagicServiceProvider extends PackageServiceProvider
 {
@@ -17,9 +17,6 @@ class MoneyMagicServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('money-magic')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_money_magic_table')
-            ->hasCommand(MoneyMagicCommand::class);
+            ->hasConfigFile();
     }
 }

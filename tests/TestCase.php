@@ -2,9 +2,9 @@
 
 namespace Fezz\MoneyMagic\Tests;
 
+use Fezz\MoneyMagic\MoneyMagicServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Fezz\MoneyMagic\MoneyMagicServiceProvider;
 
 class TestCase extends Orchestra
 {
