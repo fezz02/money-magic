@@ -23,7 +23,7 @@ final readonly class MoneyFormattedCast implements CastsAttributes
             return null;
         }
 
-        return $money->formatTo(config('money-magic.formatted.format', 'it-IT'));
+        return $money->formatToLocale(config('money-magic.formatted.format', 'it-IT'));
     }
 
     public function set(Model $model, string $key, mixed $value, array $attributes): array
