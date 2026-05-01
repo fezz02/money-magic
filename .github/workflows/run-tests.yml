@@ -51,6 +51,7 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Install Aspell
+        if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y aspell aspell-en
