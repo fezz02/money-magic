@@ -20,7 +20,7 @@ Storing money as floats in databases is a common mistake that leads to precision
 ## Requirements
 
 - PHP ^8.3
-- Laravel ^11.0 or ^12.0
+- Laravel ^11.0, ^12.0, or ^13.0
 
 ## Installation
 
